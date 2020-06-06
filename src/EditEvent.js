@@ -5,9 +5,10 @@ import {Link} from  'react-router-dom';
 function EditInterview(event) {
   
   const pageUrl = window.location.href
-  const id = pageUrl.substring(35,38);
-  
-  const perform_function = async(json_object) => {
+  const id = pageUrl.substring(33,36);
+  // const id = this.props.match.params.id;
+
+  const actionEvent = async(json_object) => {
     console.log(json_object);
     
     const options = 
@@ -25,31 +26,22 @@ function EditInterview(event) {
 
   }
 
-
-  console.log("I am in EditInterview ");  
   event.preventDefault();
   const data = new FormData(event.target);
   var json_object   = {}
   data.forEach((value, key) => {json_object[key] = value});
-
-  perform_function(json_object);
-  
-  
+  actionEvent(json_object);
 }
 
-export default class Edit extends React.Component{
+export default class EditEvent extends React.Component{
   state = {
     loading: true,
     interviews: null,
   };
 
   async componentDidMount() {
-    
-    // fetching id from current page url
-    const pageUrl = window.location.href
-    const id = pageUrl.substring(35,38);
-    
-    const url = "http://localhost:3000/interviews/" + id;
+    const id = this.props.match.params.id;
+    const url = `http://localhost:3000/interviews/${id}`;
     const response = await fetch(url);
     const data = await response.json();
     

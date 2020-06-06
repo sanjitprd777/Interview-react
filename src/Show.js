@@ -10,12 +10,8 @@ export default class Show extends React.Component{
   };
 
   async componentDidMount() {
-    const pageUrl = window.location.href
-    console.log(pageUrl);
-    const id = pageUrl.substring(35);
-    console.log(id);
-    
-    const url = "http://localhost:3000/interviews/" + id;
+    const id = this.props.match.params.id;
+    const url = `http://localhost:3000/interviews/${id}`;
     const response = await fetch(url);
     const data = await response.json();
     console.log(data);
